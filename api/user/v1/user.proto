@@ -1,0 +1,474 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "cardbinance/api/user/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.user.v1";
+
+service User {
+	// 开卡，废弃
+	rpc OpenCardHandle (OpenCardHandleRequest) returns (OpenCardHandleReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/open_card_handle"
+		};
+	};
+
+	// 废弃
+	rpc CardStatusHandle (CardStatusHandleRequest) returns (CardStatusHandleReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/card_status_handle"
+		};
+	};
+
+	// 充值
+	rpc Deposit (DepositRequest) returns (DepositReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/deposit"
+		};
+	};
+
+	// 提现
+	rpc AdminWithdrawEth (AdminWithdrawEthRequest) returns (AdminWithdrawEthReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/withdraw_eth"
+		};
+	};
+
+	// 实体卡分红
+	rpc RewardCardTwo (RewardCardTwoRequest) returns (RewardCardTwoReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/reward_card_two"
+		};
+	};
+
+	rpc AdminRewardList (AdminRewardListRequest) returns (AdminRewardListReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/reward_list"
+		};
+	};
+
+	rpc AdminUserList (AdminUserListRequest) returns (AdminUserListReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/user_list"
+		};
+	};
+
+	rpc AdminCardTwoList (AdminCardTwoRequest) returns (AdminCardTwoReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/card_two_list"
+		};
+	};
+
+	// 虚拟卡手动绑定，进处理队列
+	rpc AdminUserBind (AdminUserBindRequest) returns (AdminUserBindReply) {
+		option (google.api.http) = {
+			post: "/api/admin_dhb/admin_user_bind"
+			body: "send_body"
+		};
+	};
+
+	// 实体卡手动绑定，进处理队列
+	rpc AdminUserBindTwo (AdminUserBindTwoRequest) returns (AdminUserBindTwoReply) {
+		option (google.api.http) = {
+			post: "/api/admin_dhb/admin_user_bind_two"
+			body: "send_body"
+		};
+	};
+
+	rpc AdminLogin (AdminLoginRequest) returns (AdminLoginReply) {
+		option (google.api.http) = {
+			post: "/api/admin_dhb/login"
+			body: "send_body"
+		};
+	};
+
+	// 废弃
+	rpc UpdateUserInfoTo (UpdateUserInfoToRequest) returns (UpdateUserInfoToReply) {
+		option (google.api.http) = {
+			post: "/api/admin_dhb/set_user_info_to"
+			body: "send_body"
+		};
+	};
+
+	// 设置用户客户端调整分红级别虚拟卡
+	rpc UpdateCanVip (UpdateCanVipRequest) returns (UpdateCanVipReply) {
+		option (google.api.http) = {
+			post: "/api/admin_dhb/set_can_vip"
+			body: "send_body"
+		};
+	};
+
+	// 设置实体卡分红级别
+	rpc SetVipThree (SetVipThreeRequest) returns (SetVipThreeReply) {
+		option (google.api.http) = {
+			post: "/api/admin_dhb/set_vip_three"
+			body: "send_body"
+		};
+	};
+
+	// 清除用户申请卡片次数，目前无用
+	rpc SetUserCount (SetUserCountRequest) returns (SetUserCountReply) {
+		option (google.api.http) = {
+			post: "/api/admin_dhb/set_user_count"
+			body: "send_body"
+		};
+	};
+
+	rpc AdminConfig (AdminConfigRequest) returns (AdminConfigReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/config"
+		};
+	};
+
+	rpc AdminConfigUpdate (AdminConfigUpdateRequest) returns (AdminConfigUpdateReply) {
+		option (google.api.http) = {
+			post: "/api/admin_dhb/config_update"
+			body: "send_body"
+		};
+	};
+
+	rpc UpdateAllCard (UpdateAllCardRequest) returns (UpdateAllCardReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/update_all_card"
+		};
+	};
+
+	rpc UpdateAllCardOne (UpdateAllCardRequest) returns (UpdateAllCardReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/update_all_card_one"
+		};
+	};
+
+	rpc AllInfo (AllInfoRequest) returns (AllInfoReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/all_info"
+		};
+	};
+
+	rpc EmailGet (EmailGetRequest) returns (EmailGetReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/email_get"
+		};
+	};
+
+	rpc PullAllCard (PullAllCardRequest) returns (PullAllCardReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/pull_all_card_one"
+		};
+	};
+
+	rpc AutoUpdateAllCard (UpdateAllCardRequest) returns (UpdateAllCardReply) {
+		option (google.api.http) = {
+			get: "/api/admin_dhb/auto_update_all_card"
+		};
+	};
+}
+
+message AdminConfigUpdateRequest {
+	message SendBody{
+		int64 id = 1;
+		string value = 2;
+	}
+
+	SendBody send_body = 1;
+}
+
+message AdminConfigUpdateReply {
+
+}
+
+message AdminConfigRequest {
+}
+
+message UpdateAllCardReply {
+
+}
+
+message UpdateAllCardRequest {
+}
+
+message PullAllCardReply {
+
+}
+
+message PullAllCardRequest {
+}
+
+
+message AllInfoReply {
+	uint64 totalUser = 1; //
+	uint64 todayUser = 2;
+	double totalDeposit = 3;
+	double todayDeposit = 4;
+	double toAmount = 5;
+	double feeAmount = 6;
+	uint64 cardTotal = 7;
+	uint64 cardTwoTotal = 8;
+	uint64 cardRewardTotal = 9;
+	uint64 cardRewardTwoTotal = 10;
+	uint64 todayWithdraw = 11;
+	uint64 totalWithdraw = 12;
+	uint64 balanceAll = 13;
+}
+
+message AllInfoRequest {
+}
+
+message AdminConfigReply {
+	repeated List config = 1;
+	message List {
+		int64 id = 1;
+		string name = 3; // 名称
+		string value = 2; // 值
+	}
+	int64 count = 2;
+}
+
+message EmailGetRequest {
+}
+
+message EmailGetReply {
+}
+
+message SetUserCountRequest {
+	message SendBody{
+		uint64 userId = 1;
+	}
+
+	SendBody send_body = 1;
+}
+
+message SetUserCountReply {
+}
+
+message SetVipThreeRequest {
+	message SendBody{
+		uint64 userId = 1;
+		uint64 vipThree = 2; //3省，2市 1区，0取消
+	}
+
+	SendBody send_body = 1;
+}
+
+message SetVipThreeReply {
+}
+
+message UpdateCanVipRequest {
+	message SendBody{
+		uint64 userId = 1;
+		uint64 canVip = 2; //0不允许 1允许
+	}
+
+	SendBody send_body = 1;
+}
+
+message UpdateCanVipReply {
+}
+
+message UpdateUserInfoToRequest {
+	message SendBody{
+		uint64 userId = 1;
+	}
+
+	SendBody send_body = 1;
+}
+
+message UpdateUserInfoToReply {
+}
+
+
+message AdminLoginRequest {
+	message SendBody{
+		string account = 1;
+		string password = 2;
+	}
+
+	SendBody send_body = 1;
+}
+
+message AdminLoginReply {
+	string token = 1;
+}
+
+message AdminUserBindRequest {
+	message SendBody{
+		double amount = 1;
+		string address = 3;
+		string cardId = 2;
+		string carNum = 4;
+	}
+
+	SendBody send_body = 1;
+}
+
+message AdminUserBindReply {
+	string token = 1;
+}
+
+message AdminUserBindTwoRequest {
+	message SendBody{
+		double amount = 1;
+		uint64 id = 3;
+		string cardId = 2;
+		string carNum = 4;
+	}
+
+	SendBody send_body = 1;
+}
+
+message AdminUserBindTwoReply {
+	string token = 1;
+}
+
+message AdminUserListRequest {
+	int64 page = 1;
+	string address = 2;
+	string cardOrderId = 3; // 虚拟卡开卡状态，"no"未申请， "do"申请，"doing"已提交上游，"success"成功
+	uint64 cardTwo = 4; // 实体卡提交上游状态，0未提交，1已提交，2成功
+	uint64 lockCard = 5; // 卡片冻结：1虚拟卡 2实体卡
+	uint64 changeCard = 6; // 补卡申请：1虚拟卡 2实体卡
+}
+
+message AdminUserListReply { // 用户信息
+	repeated UserList users = 1;
+	message UserList {
+		uint64 userId = 8;
+		string createdAt = 1; // 创建时间
+		string address = 2; // 地址
+		string myRecommendAddress = 5; // 推荐人
+		string amount = 12; // 账户余额
+		uint64 myTotalAmount = 13; // 业绩
+		uint64 vip = 3; // 虚拟卡分红级别
+		uint64 canVip = 7; // 允许app设置级别，0不允许，1允许
+		uint64 vipThree = 9; // 实体卡分红级别，5,4,3,2,1
+		uint64 historyRecommend = 6; // 直推人数
+		string cardNumber = 10; // 虚拟卡片id
+		string cardTwoNumber = 11; // 实体卡片id
+		string cardOrderId = 14; // 虚拟卡开卡状态，"no"未申请， "do"申请，"doing"已提交上游，"success"成功
+		uint64 cardTwo = 17; // 实体卡提交上游状态，0未提交，1已提交，2成功
+		string pic = 19; // 身份证正面
+		string picTwo = 20; // 身份证反面
+		uint64 lockCard = 21; // 虚拟卡冻结状态，1已冻结，0未冻结
+		uint64 lockCardTwo = 22; // 实体卡冻结状态，1已冻结，0未冻结
+		uint64 changeCard = 23; // 虚拟卡申请补卡，1已申请，0未申请
+		uint64 changeCardTwo = 24; // 实体卡申请补卡，1已申请，0未申请
+		string CardNumberRel = 25;
+		string CardNumberRelTwo = 26;
+	}
+
+	int64 count = 2;
+}
+
+message AdminCardTwoRequest {
+	int64 page = 1;
+	string address = 2;
+	uint64 status = 4; // 实体卡提交上游状态，0未提交，1已提交，2成功
+}
+
+// 实体卡用户信息列表
+message AdminCardTwoReply {
+	// 用户列表
+	repeated EntityCardUser users = 1;
+
+	// 总数
+	int64 count = 2;
+
+	// 单个用户实体卡信息
+	message EntityCardUser {
+		uint64 id = 22;
+		uint64 userId = 1;              // 用户ID（user_id）
+		string address = 21; 						// 地址
+		string createdAt = 2;           // 创建时间（created_at）
+
+		string firstName = 4;           // 名（first_name）
+		string lastName = 5;            // 姓（last_name）
+		string email = 6;               // 邮箱（email）
+
+		string countryCode = 7;         // 国家区号（country_code）
+		string phone = 8;               // 手机号（phone）
+
+		string city = 9;                // 城市（city）
+		string country = 10;            // 国家（country）
+		string street = 11;             // 街道（street）
+		string postalCode = 12;         // 邮编（postal_code）
+		string state = 13;              // 州/省份（state）
+
+		string birthDate = 14;          // 出生日期（birth_date）
+		string phoneCountryCode = 15;   // 手机国家区号（phone_country_code）
+
+		string cardId = 16;             // 实体卡 card_id（上游返回的卡ID）
+
+		uint64 status = 18;             // 实体卡状态（status，0未提上游，1已提交上游，2成功 等）
+
+		string idCard = 19;             // 身份证号（id_card）
+		string gender = 20;             // 性别（gender）
+		string cardNumberRelTwo = 23;
+	}
+}
+
+message AdminRewardListRequest {
+	uint64 page = 1;
+	string address = 2;
+	uint64 reason = 3;
+}
+
+message AdminRewardListReply {
+	repeated List rewards = 1;
+	message List {
+		string createdAt = 1; // 时间
+		string amount = 2; // 金额
+		string address = 5; // 地址
+		// 原因 每一条替换文案
+		// 实体卡开卡收益reason=11
+		// 虚拟卡开卡收益reason=6
+		// 划转reason=5
+		// 提现reason=2
+		// 充值reason=1
+		// 开实体卡reason=9
+		// 开虚拟卡reason=3
+		// 开虚拟卡失败退款reason=7
+		// 虚拟卡充值reason=4
+		uint64 reason = 6;
+		string addressTwo = 7; // 目标地址或订单号
+		uint64 one = 8; // vip级别
+	}
+
+	uint64 count = 2;
+}
+
+message OpenCardHandleRequest {
+}
+
+message OpenCardHandleReply {
+	string status = 1;
+}
+
+
+message CardStatusHandleRequest {
+}
+
+message CardStatusHandleReply {
+	string status = 1;
+}
+
+message DepositRequest {
+}
+
+message DepositReply {
+	string status = 1;
+}
+
+message AdminWithdrawEthRequest {
+}
+
+message AdminWithdrawEthReply {
+}
+
+message RewardCardTwoRequest {
+}
+
+message RewardCardTwoReply {
+}
